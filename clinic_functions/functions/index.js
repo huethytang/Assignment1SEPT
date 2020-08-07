@@ -10,7 +10,7 @@ const { authorization} = require('./main/authorization')
 
 
 application.get('/Doctors', getAllDoctors)
-application.post('/Doctor', addADoctor)
+application.post('/Doctor', authorization, addADoctor)
 
 
 application.get('/Booking-history', authorization, getBookingHistory)
