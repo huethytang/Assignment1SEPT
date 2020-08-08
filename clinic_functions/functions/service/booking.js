@@ -97,7 +97,7 @@ exports.getBookingHistory =(req,res)=>{
 
 exports.deleteBooking =(req,res)=>{
   admin.firestore().doc(`/Bookings/${req.params.bId}`).get().then(doc=>{
-  if(doc === null){
+  if(!doc.exists){
     return res.status(404).json({error:"404 not found!"})
   } else if(doc.data().email!=req.user.email){
     return res.status(400).json({unauthorized:" You are not allowed to delete this document!"})
@@ -105,5 +105,9 @@ exports.deleteBooking =(req,res)=>{
     return admin.firestore().doc(`/Bookings/${req.params.bId}`).delete().then(()=>{
       res.status(200).json({message:`Booking deleted successfully!`})
     })
+  .catch(error=>{
+    console.error(error)
+    return res.status(500).json({error: error.code})
+  })
   }}
   )}

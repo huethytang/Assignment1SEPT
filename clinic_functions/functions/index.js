@@ -5,13 +5,13 @@ const functions = require('firebase-functions')
 //get all the necessary functions
 const { accountRegister, login,updateAccountInfo, getAllAccounts,getAccountInfo, deleteAccount} = require('./main/account')
 const { getAllBookings, createBooking, getBookingHistory, getBookingDetail, deleteBooking } = require('./service/booking')
-const { getAllDoctors, addADoctor} = require('./object/doctor')
+const { getAllDoctors, addADoctor, deleteDoctor} = require('./object/doctor')
 const { authorization} = require('./main/authorization')
 
 
 application.get('/Doctors', getAllDoctors)
 application.post('/Doctor', authorization, addADoctor)
-
+application.delete('/Doctors/:dId',authorization, deleteDoctor)
 
 application.get('/Booking-history', authorization, getBookingHistory)
 application.get('/Booking/:bId',authorization, getBookingDetail)
